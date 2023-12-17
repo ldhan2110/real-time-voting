@@ -10,6 +10,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 // Register ChartJS components using ChartJS.register
 ChartJS.register(
@@ -18,7 +19,8 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  ChartDataLabels
 );
 
 export const options = {
@@ -51,7 +53,17 @@ export default  () => {
     {
       label: 'Vote',
       data: [0,0,0,0],
-      backgroundColor: ['rgba(255, 99, 132, 0.5)','rgba(255, 255, 132, 0.5)','rgba(255, 132, 132, 0.5)','rgba(132, 99, 132, 0.5)',]
+      backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                              'rgba(255, 159, 64, 0.2)',
+                              'rgba(255, 205, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+      ],
+      borderWidth: 1
     }
   ],
 });
@@ -59,7 +71,7 @@ export default  () => {
   const[data, setData] = useState(0);
 
   const loadData = async () => {
-      const response = await fetch("http://"+ window.location.hostname + "/api/chart", {cache: "no-store"});
+      const response = await fetch("http://localhost:3000/api/chart", {cache: "no-store"});
       let responseData =  await response.json();
 
       setChartData({
@@ -68,7 +80,17 @@ export default  () => {
           {
             label: 'Vote',
             data: responseData.data,
-            backgroundColor: ['red','green', 'blue','white']
+            backgroundColor: ['rgba(255, 99, 132, 0.2)',
+                              'rgba(255, 159, 64, 0.2)',
+                              'rgba(255, 205, 86, 0.2)',
+                              'rgba(75, 192, 192, 0.2)',],
+            borderColor: [
+              'rgb(255, 99, 132)',
+              'rgb(255, 159, 64)',
+              'rgb(255, 205, 86)',
+              'rgb(75, 192, 192)',
+            ],
+            borderWidth: 1
           }
         ],
       });
@@ -86,7 +108,7 @@ export default  () => {
 
 return (
     <div>
-      <Bar options={options} data={chartData} width={600} height={300} />
+      <Bar options={options} data={chartData} plugins={ChartDataLabels} width={600} height={300} />
     </div>
   );
 };
