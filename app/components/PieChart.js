@@ -71,7 +71,7 @@ export default  () => {
   const[data, setData] = useState(0);
 
   const loadData = async () => {
-      const response = await fetch("http://"+ window.location.hostname + "/api/chart", {cache: "no-store"});
+      const response = await fetch("https://"+ window.location.hostname + "/api/chart", {cache: "no-store"});
       let responseData =  await response.json();
 
       setChartData({
