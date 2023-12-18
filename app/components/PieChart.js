@@ -107,8 +107,8 @@ export default  () => {
   }, []);
 
 return (
-    <div>
-      <Bar options={options} data={chartData} plugins={ChartDataLabels} width={600} height={300} />
+    <div className="max-w-2xl p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <Bar options={options} data={chartData} plugins={ChartDataLabels} width={800} height={500} />
     </div>
   );
 };

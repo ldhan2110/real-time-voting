@@ -9,8 +9,8 @@ export default function Home() {
               src="/logo-hackathon.png"
               alt="Company Hackathon"
               className="dark:invert"
-              width={100}
-              height={100}
+              width={150}
+              height={30}
               priority
         />
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
@@ -25,12 +25,86 @@ export default function Home() {
               alt="Company Logo"
               className="dark:invert"
               width={200}
-              height={150}
+              height={250}
               priority
             />
           </a>
         </div>
       </div>
+
+      <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+      </ul>
+
+      {/* <div className="z-10 absolute top-[50%] left-[150px] criteria">
+        <Image
+              src="/mvp_icon.png"
+              alt="Company Logo"
+              className="dark:invert"
+              width={50}
+              height={50}
+              priority
+            />
+      </div>
+
+      <div className="z-10 absolute top-[50%] right-[150px] criteria">
+        <Image
+              src="/strategy_icon.png"
+              alt="Company Logo"
+              className="dark:invert"
+              width={50}
+              height={50}
+              priority
+            />
+      </div>
+
+      <div className="z-10 absolute top-[70%] right-[150px] criteria">
+        <Image
+              src="/teamwork_icon.png"
+              alt="Company Logo"
+              className="dark:invert"
+              width={50}
+              height={50}
+              priority
+            />
+      </div>
+
+      <div className="z-10 absolute top-[70%] left-[150px] criteria">
+        <Image
+              src="/creativity_icon.png"
+              alt="Company Logo"
+              className="dark:invert"
+              width={50}
+              height={50}
+              priority
+            />
+      </div>
+
+      <div className="z-10 absolute top-[20%] left-[47%] criteria">
+        <Image
+              src="/storytelling_icon.png"
+              alt="Company Logo"
+              className="dark:invert"
+              width={50}
+              height={50}
+              priority
+            />
+      </div> */}
 
       <PieChart/>
 
