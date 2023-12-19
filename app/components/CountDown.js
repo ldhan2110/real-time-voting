@@ -79,7 +79,7 @@ export const CountDown = () => {
         },{cache: "no-store"}).then((response) => response.json())
             .then((data) => {
                 if (data.data == 'YES' && !startCountDown) setStartCountDown(true);
-                else setStartCountDown(false);
+                else if (data.data == 'NO') setStartCountDown(false);
             })
             .catch((error) => {
                 console.error(error);
@@ -98,7 +98,7 @@ export const CountDown = () => {
     useEffect( () => {
         const timer = window.setInterval(() => {
             getSignalTimer();
-        }, 500);
+        }, 1000);
         return () => {
             window.clearInterval(timer);
         };
