@@ -289,3 +289,35 @@ body {
         border-radius: 50%;
     }
 }
+
+
+.countdown-wrapper {
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10 0;
+}
+
+.countdown-box {
+    background-color: #604bff;
+    font-size: 50px;
+    font-weight: 700;
+    color: #FFF;
+    border-radius: 15px;
+    width: 150px;
+    height: 160px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.legend {
+    font-size: 30px;
+    color: #fff;
+    margin-top: 20px;
+}
