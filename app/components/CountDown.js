@@ -71,7 +71,7 @@ export const CountDown = () => {
     };
 
     const getSignalTimer = async () => {
-        await fetch("http://"+ "localhost:3000" + "/api/countdown", {
+        await fetch("https://"+ window.location.hostname + "/api/countdown", {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
