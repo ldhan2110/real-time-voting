@@ -79,7 +79,6 @@ export const CountDown = () => {
         },{cache: "no-store"}).then((response) => response.json())
             .then((data) => {
                 if (data.data == 'YES' && !startCountDown) setStartCountDown(true);
-                else if (data.data == 'NO') setStartCountDown(false);
             })
             .catch((error) => {
                 console.error(error);
