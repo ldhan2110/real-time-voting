@@ -41,6 +41,12 @@ export const options = {
       display: true,
       text: 'Hackathon Voting Result',
     },
+    datalabels: {
+        font: {
+          weight: 'bold',
+          size: 16,
+        }
+    }
   },
 };
 
