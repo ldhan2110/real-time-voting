@@ -7,6 +7,7 @@ import {
   BarElement,
   Title,
   Tooltip,
+  defaults,
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
@@ -23,13 +24,14 @@ ChartJS.register(
   ChartDataLabels
 );
 
+defaults.font.size = 20;
+
 export const options = {
   responsive: true,
   scales: {
     y:  {
           min: 0,
           max: 500,
-          step: 1,
         },
   },
   plugins: {
@@ -44,7 +46,7 @@ export const options = {
     datalabels: {
         font: {
           weight: 'bold',
-          size: 16,
+          size: 30,
         }
     }
   },
@@ -113,8 +115,8 @@ export default  () => {
   }, []);
 
 return (
-    <div className="max-w-6xl min-w-[1000px] p-5 items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <Bar options={options} data={chartData} plugins={ChartDataLabels}  />
+    <div className="min-w-[1000px] p-5 items-center bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <Bar options={options} data={chartData} plugins={ChartDataLabels} width={1200} height={500}  />
     </div>
   );
 };
