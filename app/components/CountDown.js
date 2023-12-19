@@ -94,14 +94,14 @@ export const CountDown = () => {
     }, [startCountDown]);
 
     //Auto-refresh chart after 500ms
-    useEffect( () => {
-        const timer = window.setInterval(() => {
-            getSignalTimer();
-        }, 1000);
-        return () => {
-            window.clearInterval(timer);
-        };
-    }, []);
+    // useEffect( () => {
+    //     const timer = window.setInterval(() => {
+    //         getSignalTimer();
+    //     }, 1000);
+    //     return () => {
+    //         window.clearInterval(timer);
+    //     };
+    // }, []);
  
     // We can use useEffect so that when the component
     // mount the timer will start as soon as possible
