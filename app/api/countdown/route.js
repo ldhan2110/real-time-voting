@@ -1,18 +1,23 @@
 export const dynamic = 'force-dynamic'
 
-let startCountDown = "NO";
-
-export async function GET(request) {
-  const url = new URL(request.url)
-
-  const start = url.searchParams.get("start");
-
-  if (start == 'Y') startCountDown = 'YES'
-  else startCountDown = 'NO'
-
-  return Response.json({"success": "Success"});
+let timerServer = {
+  duration: 0,
+  startTime: null,
+  started: false
 }
 
-export async function POST() {
-  return Response.json({ data: startCountDown })
+export async function GET() {
+  return Response.json({ data: timerServer })
+}
+
+export async function POST(request) {
+  const {duration, started, startTime} = await request.json();
+
+  timerServer = {
+    duration: duration,
+    startTime: startTime,
+    started: started
+  }
+
+  return Response.json({ "success": "Success" })
 }

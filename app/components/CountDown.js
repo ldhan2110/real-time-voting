@@ -6,7 +6,10 @@ export const CountDown = () => {
      // The state for our timer
     const [timer, setTimer] = useState("00:00:00");
 
-    const [startCountDown, setStartCountDown] = useState(false);
+    const [timerServer, setTimerServer] = useState({
+        duration: 0,
+        started: false
+    })
 
     const Ref = useRef(null);
 
@@ -46,14 +49,6 @@ export const CountDown = () => {
     };
  
     const clearTimer = (e) => {
-        // If you adjust it you should also need to
-        // adjust the Endtime formula we are about
-        // to code next
-        setTimer("00:01:00");
- 
-        // If you try to remove this line the
-        // updating of timer Variable will be
-        // after 1000ms or 1sec
         if (Ref.current) clearInterval(Ref.current);
         const id = setInterval(() => {
             startTimer(e);
@@ -61,37 +56,87 @@ export const CountDown = () => {
         Ref.current = id;
     };
  
-    const getDeadTime = () => {
-        let deadline = new Date();
- 
-        // This is where you need to adjust if
-        // you entend to add more time
-        deadline.setSeconds(deadline.getSeconds() + 60);
-        return deadline;
+    const getDeadTime = (startTime, seconds) => {
+        startTime.setSeconds(startTime.getSeconds() + seconds);
+        return startTime;
     };
 
-    const getSignalTimer = async () => {
-        await fetch("https://"+ window.location.hostname + "/api/countdown", {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            }
-        },{cache: "no-store"}).then((response) => response.json())
-            .then((data) => {
-                if (data.data == 'YES' && !startCountDown) setStartCountDown(true);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+    const loadCountDownData = async () => {
+        const res = await fetch('/api/countdown', {cache: "no-store"});
+
+        const {data} = await res.json();
+
+        window.duration = data.duration;
+        window.startTime = data.startTime;
+        window.started = data.started
+
+        if (data.started) {
+           clearTimer(getDeadTime(new Date(window.startTime), window.duration));
+        }
     }
 
+    const sendCountDownData = () => {
+        fetch('/api/countdown', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({    
+                duration: window.duration,
+                started: window.started,
+                startTime: window.startTime
+            }),
+        }, {cache: "no-store"})
+    }
+
+    const setDisplayTimer = (time)=>{
+        setTimer(time);
+
+        let minutes = time.substring(3,timer.length-3);
+        let seconds = time.substring(6,timer.length);
+
+        window.duration = parseInt(minutes) * 60 + parseInt(seconds);
+
+        return "Set Timer successfully.";
+    }
+
+    const startCountDown = () => {
+        console.log("Start the timer...");
+        window.startTime = new Date();
+        window.started = true;
+        clearTimer(getDeadTime(new Date(), window.duration));
+
+        sendCountDownData();
+    }
+
+    const stopCountDown = () => {
+        //Get the duration left need to be run
+        window.duration = window.duration - (new Date().getSeconds() - window.startTime.getSeconds());
+        window.started = false;
+        clearInterval(Ref.current);
+
+        sendCountDownData()
+    }
+
+    //Expose Function for Browser console.
+    useEffect(() => {
+        window.duration = 0;
+        window.startTime = null;
+        window.started = false;
+        window.setDuration = setDisplayTimer;
+        window.startCountDown = startCountDown;
+        window.stopCountDown = stopCountDown;
+
+        loadCountDownData();
+    },[])
+
     //Auto-refresh chart after 1000ms
-    useEffect( () => {
-        if (startCountDown) {
-            console.log("Start the timer...");
-            clearTimer(getDeadTime());
-        }
-    }, [startCountDown]);
+    // useEffect(() => {
+    //     if (timerServer.started) {
+    //         console.log("Start the timer...");
+    //         clearTimer(getDeadTime());
+    //     }
+    // }, [timerServer]);
 
     //Auto-refresh chart after 500ms
     // useEffect( () => {
@@ -105,21 +150,7 @@ export const CountDown = () => {
  
     // We can use useEffect so that when the component
     // mount the timer will start as soon as possible
- 
-    // We put empty array to act as componentDid
-    // mount only
-    // useEffect(() => {
-    //     clearTimer(getDeadTime());
-    // }, []);
- 
-    // Another way to call the clearTimer() to start
-    // the countdown is via action event from the
-    // button first we create function to be called
-    // by the button
-    const onClickReset = () => {
-        clearTimer(getDeadTime());
-    };
- 
+
     return (
         <>
         <div className='countdown-wrapper'>
